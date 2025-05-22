@@ -8,7 +8,7 @@ export default function FloatingActionButton(props: FloatingActionButtonProps) {
   return (
     <Pressable
       onPress={() => {
-        props.handlePress;
+        props.handlePress?.();
       }}
       style={styles.buttonContainer}
     >

@@ -1,29 +1,47 @@
+import CustomBottomSheetModal from "@/components/CustomBottomSheetModal";
 import FloatingActionButton from "@/components/FloatingActionButton";
-import TodoList from "@/components/TodoList";
-import { DefaultTheme, ThemeProvider } from "@react-navigation/native";
+import Header from "@/components/Header";
+import { performLogin } from "@/services/loginService";
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { StatusBar } from "expo-status-bar";
-import { useEffect, useState } from "react";
-import { Todo } from "./types";
+import { useEffect } from "react";
+import { StyleSheet } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { SafeAreaView } from "react-native-safe-area-context";
+import {
+  bottomSheetRef,
+  presentBottomSheet,
+} from "../services/bottomSheetService";
+import Page from "./Page";
+
+const queryClient = new QueryClient();
 
 export default function RootLayout() {
-  const [todos, setTodos] = useState<Todo[]>([]);
-
   useEffect(() => {
-    const fetchTodos = async () => {
-      const response = await fetch(
-        "https://ac448k40gg84kosggk088wkg.jefvanzanten.dev/todos"
-      );
-      const data: Todo[] = await response.json();
-      setTodos(data);
-    };
-    fetchTodos();
+    performLogin();
   }, []);
 
   return (
-    <ThemeProvider value={DefaultTheme}>
-      <TodoList todos={todos} />
-      <FloatingActionButton />
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <BottomSheetModalProvider>
+          <StatusBar style="auto" />
+          <SafeAreaView style={styles.container}>
+            <Header />
+            <Page />
+          </SafeAreaView>
+          <CustomBottomSheetModal ref={bottomSheetRef} />
+          <FloatingActionButton handlePress={presentBottomSheet} />
+        </BottomSheetModalProvider>
+      </GestureHandlerRootView>
+    </QueryClientProvider>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    display: "flex",
+    flex: 1,
+  },
+});

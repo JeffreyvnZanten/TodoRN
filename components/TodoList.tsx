@@ -1,24 +1,34 @@
-import { Todo } from "@/app/types";
-import { Fragment } from "react";
-import { Text, View } from "react-native";
+import { fetchTodos } from "@/services/todoService.";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { FlatList, StyleSheet, View } from "react-native";
+import TodoItem from "./TodoItem";
 
-type TodoListProps = {
-  todos: Todo[];
-};
+export default function TodoList() {
+  const { data } = useSuspenseQuery({
+    queryKey: ["todos"],
+    queryFn: fetchTodos,
+  });
 
-export default function TodoList(props: TodoListProps) {
   return (
-    <Fragment>
-      {props.todos &&
-        props.todos?.map((todo, key) => (
-          <View
-            className="flex flex-row align-center items-center p-4 m-8"
-            key={todo.id}
-          >
-            <Text>{todo.title}</Text>
-            <Text>{todo.description}</Text>
-          </View>
-        ))}
-    </Fragment>
+    <View style={styles.container}>
+      <FlatList
+        data={data}
+        keyExtractor={(item) => item.id!.toString()}
+        renderItem={({ item }) => <TodoItem {...item} />}
+        removeClippedSubviews={false}
+      />
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    display: "flex",
+    flex: 1,
+  },
+  todoListContainer: {
+    padding: 10,
+    minHeight: 50,
+    width: "100%",
+  },
+});
