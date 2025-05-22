@@ -1,10 +1,16 @@
+import Constants from "expo-constants";
 import { authClient } from "../auth/auth-client";
+
+const { AUTH_EMAIL, AUTH_PASSWORD } = Constants.expoConfig!.extra as {
+  AUTH_EMAIL: string;
+  AUTH_PASSWORD: string;
+};
 
 export const performLogin = async () => {
   try {
     const { data, error } = await authClient.signIn.email({
-      email: "test@example.com",
-      password: "veiligWachtwoord123",
+      email: AUTH_EMAIL,
+      password: AUTH_PASSWORD,
     });
 
     if (error) {
@@ -13,7 +19,7 @@ export const performLogin = async () => {
     }
 
     console.log("Ingelogd als:", data.user);
-  } catch (err: any) {
-    console.error("Verbindingsfout of andere error:", err);
+  } catch (error: any) {
+    console.error("Verbindingsfout of andere error:", error);
   }
 };
