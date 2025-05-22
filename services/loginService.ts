@@ -1,4 +1,4 @@
-import { authClient } from "../app/auth-client";
+import { authClient } from "../auth/auth-client";
 
 export const performLogin = async () => {
   try {
