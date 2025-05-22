@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "TimeManager",
-    "slug": "TimeManager",
+    "name": "TodoClientRN",
+    "slug": "TodoClientRN",
     "version": "1.0.0",
     "orientation": "portrait",
-    "scheme": "timemanager",
+    "scheme": "todoclient",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
@@ -14,7 +14,7 @@
       "adaptiveIcon": {
         "backgroundColor": "#ffffff"
       },
-      "package": "com.jefvz.timemanager",
+      "package": "com.jefvz.todoclient",
       "edgeToEdgeEnabled": true
     },
     "web": {
