@@ -1,4 +1,4 @@
-package com.jefvz.timemanager
+package com.jefvz.todoclient
 
 import android.app.Application
 import android.content.res.Configuration
