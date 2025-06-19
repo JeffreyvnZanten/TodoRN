@@ -17,8 +17,6 @@ export const performLogin = async () => {
       console.error("Login mislukt:", error);
       return;
     }
-
-    console.log("Ingelogd als:", data.user);
   } catch (error: any) {
     console.error("Verbindingsfout of andere error:", error);
   }

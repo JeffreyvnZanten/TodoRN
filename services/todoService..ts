@@ -43,10 +43,8 @@ export async function updateTodo(updatedTodo: Partial<Todo>): Promise<Todo> {
 export const fetchTodos = async (): Promise<Todo[]> => {
   try {
     const url = `${API_BASE_URL}/todos`;
-    console.log("Fetching todos from", url);
     const response = await fetch(url);
     const todos = (await response.json()) as Todo[];
-    console.log("Fetched todos:", todos);
     return todos;
   } catch (error: any) {
     return [];

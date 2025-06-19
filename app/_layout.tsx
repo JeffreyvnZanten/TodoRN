@@ -26,8 +26,8 @@ export default function RootLayout() {
     <QueryClientProvider client={queryClient}>
       <GestureHandlerRootView style={{ flex: 1 }}>
         <BottomSheetModalProvider>
-          <StatusBar style="auto" />
           <SafeAreaView style={styles.container}>
+            <StatusBar />
             <Header />
             <Page />
           </SafeAreaView>
@@ -43,5 +43,6 @@ const styles = StyleSheet.create({
   container: {
     display: "flex",
     flex: 1,
+    backgroundColor: "#007AFF",
   },
 });
