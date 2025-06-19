@@ -1,27 +1,12 @@
-import { fetchTodos, updateTodo } from "@/services/todoService.";
+import { updateTodo } from "@/services/todoService.";
 import { Todo } from "@/types";
-import {
-  useMutation,
-  useQueryClient,
-  useSuspenseQuery,
-} from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React, { useCallback } from "react";
 import { FlatList } from "react-native";
 import TodoItem from "./TodoItemNew";
 
-const initialTodos: Todo[] = [
-  { id: 1, title: "Koop melk", isCompleted: false },
-  { id: 2, title: "Bel Jan", isCompleted: true },
-  { id: 3, title: "Loop een rondje", isCompleted: false },
-];
-
-const TodoList = () => {
+const TodoList = ({ todos }: { todos: Todo[] }) => {
   const queryClient = useQueryClient();
-
-  const { data } = useSuspenseQuery({
-    queryKey: ["todos"],
-    queryFn: fetchTodos,
-  });
 
   const mutation = useMutation({
     mutationFn: updateTodo,
@@ -51,7 +36,7 @@ const TodoList = () => {
 
   return (
     <FlatList
-      data={data}
+      data={todos}
       keyExtractor={(item) => item.id!.toString()}
       renderItem={({ item }) => {
         return (
