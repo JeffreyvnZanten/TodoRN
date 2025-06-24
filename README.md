@@ -1,4 +1,6 @@
 A mobile app to create and edit todo's.
+The seperation of the complete and uncomplete todo's is done with a TypeScript filter function.
+The bottomsheet and checkboxes are done with existing libraries.
 
 <div className="{display: flex; flex-direction: row">
   <img width="200" src="/screenshots/Homescreen - incomplete todo's.png" />
